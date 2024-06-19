@@ -57,7 +57,7 @@ print(f"Thread successfully created: {thread}")
 def index():
     return render_template('index.html')  # Render the index.html template
 
-# Define the route for sending a message
+# Define the route for retrieving the thread messages
 @app.route('/get', methods=['POST'])
 def get():
     messages = client.beta.threads.messages.list(
@@ -74,7 +74,7 @@ def send():
     res = []
     message = request.form['message']  # Get the message from the form
     try:
-        # add a messge to the thread
+        # add a message to the thread
         message = client.beta.threads.messages.create(
             thread_id=thread.id,
             role="user",
@@ -93,9 +93,9 @@ def send():
                 thread_id=thread.id
             )
             res.append({
-                        "role": "assistant", 
-                        "content": getText(messages.data[-1].content)
-                    })
+                "role": "assistant", 
+                "content": getText(messages.data[-1].content)
+            })
             
         else:
             print(run.status)
@@ -128,7 +128,7 @@ def delete():
     return {'status':'ok'}
 
 def getText(content):
-    # Iterate content of last message to find a TextContentBlock element 
+    # Iterate content to find a TextContentBlock element 
     for element in content:
         if element.__class__.__name__ == 'TextContentBlock':
             return element.text.value
