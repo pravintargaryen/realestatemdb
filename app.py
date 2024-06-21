@@ -94,7 +94,7 @@ def send():
             )
             res.append({
                 "role": "assistant", 
-                "content": getText(messages.data[-1].content)
+                "content": getText(messages.data[0].content)
             })
             
         else:
