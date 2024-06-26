@@ -60,19 +60,17 @@ connection_args = {
     'schema': database_schema
 }
 data_source = 'postgres'
-data_source = 'postgres'
-description = 'House Sales'
-mind_name =  'house_sales_db_mind'
+mind_name = 'my_house_data_mind_'+ts
 
 # create an assistant
 mind = create_mind(
     name = mind_name,
+    description='House Sales',
     base_url=base_url,
     api_key=mindsdb_api_key,
     model=model,
-    data_source_connection_args=connection_args,
     data_source_type=data_source,
-    description=description
+    data_source_connection_args=connection_args,
 )
 print(f"Assistant successfully created: {mind}")
 
@@ -99,8 +97,9 @@ def get():
 # Define the route for sending a message
 @app.route('/send', methods=['POST'])
 def send():
-    res = []
     message = request.form['message']  # Get the message from the form
+    res = []
+    
     try:
         # add a message to the thread
         message = client.beta.threads.messages.create(
@@ -112,7 +111,7 @@ def send():
         # create run and retrieve status
         run = client.beta.threads.runs.create_and_poll(
             thread_id=thread.id,
-            assistant_id=mind.id,
+            assistant_id=mind.name,
         )
         # get messages or status
         if run.status == 'completed': 
