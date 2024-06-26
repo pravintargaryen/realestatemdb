@@ -62,7 +62,7 @@ connection_args = {
 data_source = 'postgres'
 
 # create an assistant
-assistant = client.beta.assistants.create(
+assistant = create_mind(
     name="House sale agent",
     instructions="You are real estate agent. Your main goal in life is to sell house.",
     tools=[{"type": "code_interpreter"}],
