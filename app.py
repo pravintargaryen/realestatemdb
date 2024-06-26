@@ -50,7 +50,7 @@ client = OpenAI(
 )
 
 # Mind arguments
-model = 'gpt-4o'  # This is the model used by MindsDB text to SQL, and is not limited by what our inference endpoints support.
+model = 'gpt-4'  # This is the model used by MindsDB text to SQL, and is not limited by what our inference endpoints support.
 connection_args = {
     'user': database_user,
     'password': database_password,
@@ -60,17 +60,21 @@ connection_args = {
     'schema': database_schema
 }
 data_source = 'postgres'
+data_source = 'postgres'
+description = 'House Sales'
+mind_name =  'house_sales_db_mind'
 
 # create an assistant
-assistant = create_mind(
-    name="House sale agent",
-    instructions="You are real estate agent. Your main goal in life is to sell house.",
-    tools=[{"type": "code_interpreter"}],
+mind = create_mind(
+    name = mind_name,
+    base_url=base_url,
+    api_key=mindsdb_api_key,
     model=model,
     data_source_connection_args=connection_args,
     data_source_type=data_source,
+    description=description
 )
-print(f"Assistant successfully created: {assistant}")
+print(f"Assistant successfully created: {mind}")
 
 # crate a thread
 thread = client.beta.threads.create()
@@ -108,7 +112,7 @@ def send():
         # create run and retrieve status
         run = client.beta.threads.runs.create_and_poll(
             thread_id=thread.id,
-            assistant_id=assistant.id,
+            assistant_id=mind.id,
         )
         # get messages or status
         if run.status == 'completed': 
