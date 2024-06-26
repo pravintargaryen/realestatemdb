@@ -22,13 +22,23 @@ mindsdb_api_key = os.getenv('MINDSDB_API_KEY')
 base_url = os.getenv('MINDSDB_API_URL', "https://llm.mdb.ai")
 if base_url.endswith("/"):
     base_url = base_url[:-1]
-
+    
+#Get database connections details from environment variables
+database_user = os.getenv('DATABASE_USER')
+database_password = os.getenv('DATABASE_PASSWORD')
+database_host = os.getenv('DATABASE_HOST')
+database_port = os.getenv('DATABASE_PORT')
+database_database = os.getenv('DATABASE_DATABASE')
+database_schema = os.getenv('DATABASE_SCHEMA')
 
 # If the MindsDB API Key is not found, print an error message and exit
 if not mindsdb_api_key:
     print("Please create a .env file and add your MindsDB API Key")
     exit()
 
+if not database_user or not database_password or not database_host or not database_port or not database_database or not database_schema:
+    print("Please create a .env file and add your Database connection details")
+    exit()
 
 # Create a Flask application instance
 app = Flask(__name__, static_folder='static', template_folder='templates')
@@ -39,14 +49,30 @@ client = OpenAI(
    base_url=base_url
 )
 
+# Mind arguments
+model = 'gpt-4'  # This is the model used by MindsDB text to SQL, and is not limited by what our inference endpoints support.
+connection_args = {
+    'user': database_user,
+    'password': database_password,
+    'host': database_host,
+    'port': database_port,
+    'database': database_database,
+    'schema': database_schema
+}
+data_source = 'postgres'
+mind_name = 'my_house_data_mind_'+ts
+
 # create an assistant
-assistant = client.beta.assistants.create(
-    name="House sale agent",
-    instructions="You are real estate agent. Your main goal in life is to sell house.",
-    tools=[{"type": "code_interpreter"}],
-    model="gpt-4o",
+mind = create_mind(
+    name = mind_name,
+    description='House Sales',
+    base_url=base_url,
+    api_key=mindsdb_api_key,
+    model=model,
+    data_source_type=data_source,
+    data_source_connection_args=connection_args,
 )
-print(f"Assistant successfully created: {assistant}")
+print(f"Assistant successfully created: {mind}")
 
 # crate a thread
 thread = client.beta.threads.create()
@@ -71,8 +97,9 @@ def get():
 # Define the route for sending a message
 @app.route('/send', methods=['POST'])
 def send():
-    res = []
     message = request.form['message']  # Get the message from the form
+    res = []
+    
     try:
         # add a message to the thread
         message = client.beta.threads.messages.create(
@@ -84,7 +111,7 @@ def send():
         # create run and retrieve status
         run = client.beta.threads.runs.create_and_poll(
             thread_id=thread.id,
-            assistant_id=assistant.id,
+            assistant_id=mind.name,
         )
         # get messages or status
         if run.status == 'completed': 
