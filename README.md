@@ -1,4 +1,6 @@
- # Real Estate Bot
+ # Real Estate Analyzer Bot
+ Real Estate Analyzer Bot with Mindsdb AI  
+ 
  ## Screenshot
 ![Screenshot](https://cdn-langchain.netlify.app/Screenshot%202024-07-07%20at%2017-05-03%20Real%20Estate%20Bot.png)
 
