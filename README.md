@@ -1,4 +1,5 @@
  # Real Estate Bot
+![Screenshot] (https://cdn-langchain.netlify.app/Screenshot%202024-07-07%20at%2017-05-03%20Real%20Estate%20Bot.png)
 
 ## Installation:
 To run this project, you'll need Python 3 installed on your system. 
