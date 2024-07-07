@@ -18,10 +18,10 @@ function createMessageDiv(message, role, data) {
   const messageDiv = document.createElement("div");
   messageDiv.className = "message";
 
-  // Create the MindsDB icon element.
+  
   const image = createImageElement(
-    "/static/img/mindsdb_label.svg",
-    "MindsDB",
+    "https://seeklogo.com/images/D/dollar-logo-0683682259-seeklogo.com.png?v=638247634840000000",
+    "Real Estate",
     "icon"
   );
 
@@ -32,7 +32,7 @@ function createMessageDiv(message, role, data) {
   const p = createParagraphElement(formattedMessage);
   p.classList.add("message_content");
 
-  // Add the MindsDB icon for assistant, error, and loading messages.
+  // Add the Real Estate icon for assistant, error, and loading messages.
   if (role === "assistant" || role === "error" || role === "loading") {
     messageDiv.appendChild(image);
   }
@@ -185,6 +185,7 @@ function createImageElement(src, alt, className) {
   const image = document.createElement("img");
   image.src = src;
   image.alt = alt;
+  image.height = 30;
   image.className = className;
   return image;
 }

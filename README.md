@@ -1,24 +1,19 @@
- # Assistant-Mind Quickstart
-Get started with the Minds Endpoint api’s. Minds Endpoint is designed to help AI agents accomplish tasks, accelerating development by connecting any Mind or LLM to your data source with minimal code. Learn more in [documentation](https://docs.mdb.ai/docs/minds)
+ # Real Estate Bot
 
 ## Installation:
 To run this project, you'll need Python 3 installed on your system. 
 
-Clone this repository to your local machine using: 
+1. Clone this repository to your local machine 
 
-``` git clone git@github.com:mindsdb/assistant-mind-quickstart.git ```
-
-``` cd assistant-mind-quickstart/ ```
-
-Create a virtual environment, execute the following command: 
+2. Create a virtual environment, execute the following command: 
 
 ``` python3 -m venv .venv ``` 
 
-Activate the virtual environment by running: 
+3. Activate the virtual environment by running: 
 
 ``` source .venv/bin/activate ``` 
 
-Install dependencies using pip: 
+4. Install dependencies using pip: 
 
 ``` pip3 install -r requirements.txt ``` 
 

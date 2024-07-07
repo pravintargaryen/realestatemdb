@@ -1,9 +1,10 @@
 :root {
-  --font-main: "Inter", sans-serif;
+  --font-main: "Bebas Neue", sans-serif;
   --font-mono: "Roboto Mono", monospace;
   --color-black: #000;
   --color-dark: #18181b;
   --color-white: #fff;
+  --color-root: #001021;
   --color-gray-light: #f4f4f5;
   --color-gray-dark: #e4e4e7;
   --color-gray-medium: #52525b;
@@ -27,6 +28,8 @@ html {
 body {
   margin: 0;
   padding-bottom: 141px;
+  background: aquamarine;	
+
 }
 
 header {
@@ -40,7 +43,8 @@ header {
   flex-shrink: 0;
   align-self: stretch;
   border-bottom: 1px solid var(--color-gray-dark);
-  background-color: var(--color-white);
+  background-color: var(--color-header);
+  color: var(--color-white);
   margin-bottom: 40px;
 }
 p {
@@ -122,7 +126,7 @@ p {
   align-self: stretch;
   color: var(--color-gray-text);
   text-align: center;
-  font-family: var(--font-mono);
+ 
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -212,14 +216,14 @@ pre code {
   font-size: 14px;
   word-wrap: break-word;
 }
-.input_area_holder {
+.input_area_holder { 
+  background: aquamarine;	
   position: fixed;
   /* width: 712px; */
   width: 776px;
   padding-bottom: 40px;
   padding-top: 20px;
   bottom: 0px;
-  background: var(--color-white);
   display: flex;
   left: 50%;
   margin-left: -388px;
@@ -280,7 +284,7 @@ pre code {
   justify-content: center;
   align-items: center;
   border-radius: 6px;
-  background: var(--color-green);
+  background: skyblue;
   bottom: 10px;
   right: 10px;
   cursor: pointer;
